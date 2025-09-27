@@ -1,0 +1,53 @@
+# Build artifacts
+out/
+cache/
+artifacts/
+build/
+
+# Broadcast logs
+/broadcast/
+/broadcast/*/31337/
+/broadcast/**/dry-run/
+
+# Docs
+docs/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Node modules
+node_modules/
+
+# IDE files
+.vscode/
+.idea/
+*.sw?
+*.swo
+*.swn
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test coverage
+coverage/
+lcov-report/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Misc
+*.tgz
+*.zip
+*.tmp
+*.bak
+
+# Ignore package-lock and yarn.lock if using pnpm
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

@@ -2,34 +2,14 @@
 pragma solidity ^0.8.19;
 
 import {AmAmm} from "./AmAmm.sol";
-
-interface IERC20 {
-    function totalSupply() external view returns (uint);
-
-    function balanceOf(address account) external view returns (uint);
-
-    function transfer(address recipient, uint amount) external returns (bool);
-
-    function allowance(
-        address owner,
-        address spender
-    ) external view returns (uint);
-
-    function approve(address spender, uint amount) external returns (bool);
-
-    function transferFrom(
-        address sender,
-        address recipient,
-        uint amount
-    ) external returns (bool);
-
-    event Transfer(address indexed from, address indexed to, uint amount);
-    event Approval(address indexed owner, address indexed spender, uint amount);
-}
+import {IERC20} from "../lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
+import {ERC20Burnable} from "../lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 
 contract AMM is AmAmm {
     IERC20 public immutable token0;
     IERC20 public immutable token1;
+    IERC20 public immutable bidToken;
+    IERC20 public immutable feeToken;
 
     uint public reserve0;
     uint public reserve1;
@@ -37,9 +17,16 @@ contract AMM is AmAmm {
     uint public totalSupply;
     mapping(address => uint) public balanceOf;
 
-    constructor(address _token0, address _token1) {
+    constructor(
+        address _token0,
+        address _token1,
+        address _bidToken,
+        address _feeToken
+    ) {
         token0 = IERC20(_token0);
         token1 = IERC20(_token1);
+        bidToken = IERC20(_bidToken);
+        feeToken = IERC20(_feeToken);
     }
 
     function _mint(address _to, uint _amount) private {
@@ -189,5 +176,52 @@ contract AMM is AmAmm {
 
     function _min(uint x, uint y) private pure returns (uint) {
         return x <= y ? x : y;
+    }
+
+    function _amAmmEnabled()
+        internal
+        view
+        virtual
+        returns (/*PoolId id*/ bool)
+    {
+        return true;
+    }
+
+    function _payloadIsValid(
+        /*PoolId id,*/
+        bytes6 payload
+    ) internal view virtual returns (bool) {
+        return true;
+    }
+
+    function _burnBidToken(/*PoolId id,*/ uint256 amount) internal virtual {
+        ERC20Burnable(address(bidToken)).burnFrom(msg.sender, amount);
+    }
+
+    function _pullBidToken(
+        /*PoolId id,*/
+        address from,
+        uint256 amount
+    ) internal virtual {
+        require(
+            bidToken.transferFrom(from, address(this), amount),
+            "BidToken: transferFrom failed"
+        );
+    }
+
+    function _pushBidToken(
+        /*PoolId id,*/
+        address to,
+        uint256 amount
+    ) internal virtual {
+        require(bidToken.transfer(to, amount), "BidToken: transfer failed");
+    }
+
+    function _transferFeeToken(
+        /*Currency currency,*/
+        address to,
+        uint256 amount
+    ) internal virtual {
+        require(feeToken.transfer(to, amount), "FeeToken: transfer failed");
     }
 }

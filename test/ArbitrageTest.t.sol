@@ -4,7 +4,7 @@ pragma solidity ^0.8.19;
 import "forge-std/Test.sol";
 import "forge-std/console.sol";
 import "../src/Amm.sol";
-import "./mocks/ERC20.sol";
+import "../src/ERC20.sol";
 
 contract ArbitrageTest is Test {
     ERC20Mock token0;

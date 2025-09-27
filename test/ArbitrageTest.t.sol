@@ -1,22 +1,21 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import "forge-std/Test.sol";
-import "forge-std/console.sol";
-import "../src/Amm.sol";
-import "../src/ERC20.sol";
+import {Test, console2} from "forge-std/Test.sol";
+import {Amm} from "../src/Amm.sol";
+import {DeployAmm} from "../script/DeployAMM.s.sol";
+import {ERC20Mock} from "../script/mocks/ERC20.sol";
 
 contract ArbitrageTest is Test {
+    DeployAmm deployer;
+    Amm amm1;
+    Amm amm2;
     ERC20Mock token0;
     ERC20Mock token1;
-    AMM amm1;
-    AMM amm2;
 
     function setUp() public {
-        token0 = new ERC20Mock();
-        token1 = new ERC20Mock();
-        amm1 = new AMM(address(token0), address(token1));
-        amm2 = new AMM(address(token0), address(token1));
+        deployer = new DeployAmm();
+        (amm1, amm2, token0, token1) = deployer.run();
 
         token0.mint(address(this), 100000000000000);
         token1.mint(address(this), 100000000000000 ether);
@@ -26,7 +25,7 @@ contract ArbitrageTest is Test {
         token0.approve(address(amm2), type(uint256).max);
         token1.approve(address(amm2), type(uint256).max);
 
-        amm1.addLiquidity(9999, 200 ether); 
+        amm1.addLiquidity(9999, 200 ether);
         amm2.addLiquidity(10000, 200 ether);
     }
 
@@ -37,7 +36,7 @@ contract ArbitrageTest is Test {
         console2.log("AMM2 reserves - token0:", amm2.reserve0());
         console2.log("AMM2 reserves - token1:", amm2.reserve1());
 
-        uint256 arbitrageAmount = 0.99 ether; 
+        uint256 arbitrageAmount = 0.99 ether;
 
         console2.log("=== Arbitrage Execution ===");
         console2.log("Using token0 amount:", arbitrageAmount);
@@ -109,7 +108,7 @@ contract ArbitrageTest is Test {
         console2.log("AMM2 reserves - token0:", amm2.reserve0());
         console2.log("AMM2 reserves - token1:", amm2.reserve1());
 
-        uint256 arbitrageAmount = 0.1 ether; 
+        uint256 arbitrageAmount = 0.1 ether;
 
         console2.log("=== Arbitrage Execution ===");
         console2.log("Using token0 amount:", arbitrageAmount);

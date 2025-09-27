@@ -3,9 +3,8 @@ pragma solidity ^0.8.19;
 
 import {AmAmm} from "./AmAmm.sol";
 import {IERC20} from "../lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
-import {ERC20Burnable} from "../lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 
-contract AMM is AmAmm {
+contract Amm is AmAmm {
     IERC20 public immutable token0;
     IERC20 public immutable token1;
     IERC20 public immutable bidToken;
@@ -195,7 +194,7 @@ contract AMM is AmAmm {
     }
 
     function _burnBidToken(/*PoolId id,*/ uint256 amount) internal virtual {
-        ERC20Burnable(address(bidToken)).burnFrom(msg.sender, amount);
+            0;
     }
 
     function _pullBidToken(

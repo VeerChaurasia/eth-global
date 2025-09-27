@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Search } from "lucide-react";
 import Navbar from "../components/Navbar";
+import { Link } from "react-router-dom";
 
 function PoolPage() {
   const [search, setSearch] = useState("");
@@ -26,14 +27,14 @@ function PoolPage() {
 
   return (
     <div className="relative min-h-screen flex flex-col bg-black text-white">
-     
+
       <iframe
         src="https://sincere-polygon-333639.framer.app/404-2"
         className="absolute top-0 left-40 w-[150vw] h-[150vh] scale-[1.2] z-[0]"
         frameBorder="0"
         allowFullScreen
       />
-      
+
       <div className="absolute inset-0 z-0" />
 
       <div className="relative z-10 flex flex-col items-center px-6 pt-20 pb-10">
@@ -89,16 +90,19 @@ function PoolPage() {
             <tbody>
               {filteredPools.map((p, i) => (
                 <tr key={i} className="bg-purple-800/20 rounded-xl">
-                  <td className="px-4 py-5 font-medium">{p.pool}</td>
+                  <td className="px-4 py-5 font-medium">
+                    <Link
+                      to="/manager"
+                      className="text-white-400 hover:underline"
+                    >
+                      {p.pool}
+                    </Link>
+                  </td>
                   <td>{p.protocol}</td>
                   <td>{p.fee}</td>
                   <td>{p.tvl}</td>
                   <td>{p.apr}</td>
-                  <td
-                    className={
-                      p.reward.includes("+") ? "text-pink-400" : ""
-                    }
-                  >
+                  <td className={p.reward.includes("+") ? "text-pink-400" : ""}>
                     {p.reward}
                   </td>
                   <td>{p.vol1d}</td>

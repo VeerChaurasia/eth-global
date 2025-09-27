@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0
 pragma solidity ^0.8.19;
 
-import "forge-std/Test.sol";
+import "../lib/forge-std/src/Test.sol";
 
 import "../src/Amm.sol";
 import "../src/ERC20Mock.sol";

@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: AGPL-3.0
 pragma solidity ^0.8.19;
 
-import {LibMulticaller} from "multicaller/LibMulticaller.sol";
+import {LibMulticaller} from "../lib/multicaller/src/LibMulticaller.sol";
 
 import {PoolId} from "../lib/v4-core/src/types/PoolId.sol";
 import {Currency} from "../lib/v4-core/src/types/Currency.sol";
 
-import {SafeCastLib} from "solady/utils/SafeCastLib.sol";
-import {FixedPointMathLib} from "solady/utils/FixedPointMathLib.sol";
+import {SafeCastLib} from "../lib/solady/src/utils/SafeCastLib.sol";
+import {FixedPointMathLib} from "../lib/solady/src/utils/FixedPointMathLib.sol";
 
 import {IAmAmm} from "./interfaces/IAmAmm.sol";
 import {BlockNumberLib} from "./libraries/BlockNumberLib.sol";

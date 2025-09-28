@@ -98,8 +98,6 @@ The simulated data is stored in [DATA.md](./DATA.md).
 
 ![Profit Graph](./graphs/lp_manager_comparison.png?raw=true&width=200)
 
-![Profit Graph](./graphs/manager_profit_scenarios.png?raw=true&width=250)
-
 ![Profit Graph](./graphs/lp_profit_comparison.png?raw=true&width=250)
 
 ![Profit Graph](./graphs/lp_profit_vs_arbitrage_intensity.png?raw=true&width=300)

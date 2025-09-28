@@ -37,14 +37,18 @@ We’ve deployed a simple front-end where you can:
 * Visualise LP vs. Manager returns
 * Experiment with fees, rent, and price moves
 
-👉 **[Demo link or URL here]**
+Clone the repo:
+```bash
+   git clone https://github.com/akronim26/eth-global
+   npm run dev
+   ```
 
 ### Run Locally
 
 1. **Clone the repo**
 
    ```bash
-   git clone https://github.com/<your-org>/auction-amm.git
+   git clone https://github.com/akronim26/eth-global
    cd auction-amm
    ```
 
@@ -75,7 +79,7 @@ Core contracts live under `contracts/` and can be deployed to any EVM chain.
 * **Epoch Length** — number of blocks a manager controls the pool.
 * **Noise vs Arbitrage Intensity** — control simulated user flow and price volatility.
 
-Graphs and scripts in `analysis/` help you simulate LP and manager returns under different conditions.
+Graphs and scripts in `simulations/` help you simulate LP and manager returns under different conditions.
 
 ---
 

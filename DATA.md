@@ -5,7 +5,7 @@ This data comes from running:
 python real_world_simulate.py
 ```
 
-Let's take a scenario where the price of 1 WETH is 3 USDC and the pool has a small price difference of 1_000_000 / 333_333 = 3.000003 USDC.
+Let's take a scenario where the price of 1 WBTC is 3 USDC and the pool has a small price difference of 1_000_000 / 333_333 = 3.000003 USDC.
 
 If we deploy the pool with parameters such that the Manager has a tenure of 30 days, we can get the following profits for LPs and Manager:
 
@@ -27,10 +27,10 @@ LP gain (Auction - Normal):
 
 The parameters used were:
 ```python
-WETH_amt = 333,333       # e.g. 500 WETH in pool
+WBTC_amt = 333,333       # e.g. 500 WBTC in pool
 USDC_amt = 1,000,000 # e.g. 1M USDC in pool
-eth_price = 3     # market price of WETH in USDC
-pool_value = WETH_amt * eth_price + USDC_amt
+eth_price = 3     # market price of WBTC in USDC
+pool_value = WBTC_amt * eth_price + USDC_amt
 L = pool_value / 1e6   # scale L by millions if you like
 
 h0 = 1.0             # base noise trader $ flow per block per 1M TVL

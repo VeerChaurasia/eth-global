@@ -28,7 +28,7 @@ const Navbar = () => {
     <div className="flex justify-between items-center px-2 md:px-16 py-4 absolute top-0 left-0 w-full z-20 bg-white/10 backdrop-blur-2xl border-b border-white/20">
 
       <div className="flex items-center gap-2">
-        <p className="text-white font-bold text-lg">LOGO</p>
+        <p className="text-white font-bold text-lg">Auction AMM</p>
       </div>
 
       <div className="hidden md:flex gap-8 text-white text-sm md:text-base">
@@ -40,6 +40,9 @@ const Navbar = () => {
         </Link>
         <Link to="/manager" className="hover:text-purple-300 transition">
           Manager
+        </Link>
+        <Link to="/auction" className="hover:text-purple-300 transition">
+        Auction
         </Link>
         <button
           onClick={openHelp}

@@ -5,6 +5,7 @@ import Help from "./pages/Help.jsx";
 import App from "./App.jsx";
 import Swap from "./pages/Swap.jsx";
 import Layout from "./Layout.jsx";
+import Auction from "./pages/Auction.jsx";
 
 import ReactDOM from "react-dom/client";
 import React from "react";
@@ -19,6 +20,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/swap" element={<Swap />} />
           <Route path="/manager" element={<Manager />} />
           <Route path="/help" element={<Help />} />
+          <Route path="/auction" element={<Auction />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -20,7 +20,7 @@ echo "========================================"
 echo ""
 
 # Navigate and build
-cd /home/yash/eth-global/contracts
+cd /eth-global/contracts
 echo "Building contracts..." 
 forge build --via-ir > /dev/null 2>&1
 

@@ -3,9 +3,9 @@ import { ChevronDown, ArrowUpDown } from "lucide-react";
 import Navbar from "../components/Navbar";
 
 function SwapPage() {
-    const tokens = ["USDT", "ETH", "BTC", "SONIC"];
-    const [giveToken, setGiveToken] = useState("USDT");
-    const [getToken, setGetToken] = useState("SONIC");
+    const tokens = ["USDC", "ETH", "BTC", "SONIC"];
+    const [giveToken, setGiveToken] = useState("USDC");
+    const [getToken, setGetToken] = useState("ETH");
     const [giveAmount, setGiveAmount] = useState("");
     const [getAmount, setGetAmount] = useState("");
     const handleSwap = () => {
@@ -95,7 +95,7 @@ function SwapPage() {
                 </div>
 
                 <div className="flex justify-between items-center text-xs text-gray-400 mb-4">
-                    <p>1 ETH = 3200.98 USDT ($3208.38)</p>
+                    <p>1 ETH = 4000.98 USDT ($4000.38)</p>
                     <p className="bg-white/10 px-3 py-1 rounded-lg">$346.43</p>
                 </div>
 

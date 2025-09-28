@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
-import { Line } from "react-chartjs-2";
+import { Line, Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
+  BarElement,
   Tooltip,
   Legend,
   Filler,
 } from "chart.js";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Filler);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Tooltip, Legend, Filler);
 
 const Manager = () => {
   const [poolId, setPoolId] = useState("");
@@ -32,6 +33,7 @@ const Manager = () => {
       Deposit: ${deposit}
     `);
   };
+  
   const graphData = {
     supply: {
       labels: ["June 29, 2025", "July", "Aug", "Sep 27, 2025"],
@@ -118,20 +120,30 @@ const Manager = () => {
       ],
     },
     manager: {
-      labels: ["June", "July", "Aug", "Sep"],
+      labels: ["Epoch1", "Epoch2", "Epoch3", "Epoch4"],
       datasets: [
         {
-          label: "Manager Activity",
-          data: [5, 10, 7, 12],
-          borderColor: "rgba(236,72,153,1)",
-          backgroundColor: "rgba(236,72,153,0.3)",
-          fill: true,
-          tension: 0.3,
+          label: "Manager Bids",
+          data: [5, 6, 3, 10],
+          backgroundColor: [
+            "rgba(236,72,153,0.8)",
+            "rgba(168,85,247,0.8)", 
+            "rgba(59,130,246,0.8)",
+            "rgba(34,197,94,0.8)"
+          ],
+          borderColor: [
+            "rgba(236,72,153,1)",
+            "rgba(168,85,247,1)",
+            "rgba(59,130,246,1)", 
+            "rgba(34,197,94,1)"
+          ],
+          borderWidth: 2,
+          borderRadius: 4,
+          borderSkipped: false,
         },
       ],
     },
   };
-
 
   const options = {
     responsive: true,
@@ -145,6 +157,49 @@ const Manager = () => {
     scales: {
       x: { ticks: { color: "white" }, grid: { color: "rgba(255,255,255,0.1)" } },
       y: { ticks: { color: "white" }, grid: { color: "rgba(255,255,255,0.1)" } },
+    },
+  };
+
+  const histogramOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+        labels: { color: "white" },
+      },
+      tooltip: { 
+        mode: "index", 
+        intersect: false,
+        callbacks: {
+          title: function(tooltipItems) {
+            return tooltipItems[0].label;
+          },
+          label: function(context) {
+            return `${context.dataset.label}: ${context.parsed.y} bids`;
+          }
+        }
+      },
+    },
+    scales: {
+      x: { 
+        ticks: { color: "white" }, 
+        grid: { color: "rgba(255,255,255,0.1)" },
+        title: {
+          display: true,
+          text: 'Epochs',
+          color: 'white'
+        }
+      },
+      y: { 
+        ticks: { color: "white" }, 
+        grid: { color: "rgba(255,255,255,0.1)" },
+        title: {
+          display: true,
+          text: 'Number of Bids',
+          color: 'white'
+        },
+        beginAtZero: true
+      },
     },
   };
 
@@ -276,6 +331,13 @@ const Manager = () => {
     if (option === "manager") setRightBoxOption("manager");
   };
 
+  const renderChart = () => {
+    if (graphOption === "manager") {
+      return <Bar data={graphData[graphOption]} options={histogramOptions} />;
+    }
+    return <Line data={graphData[graphOption]} options={options} />;
+  };
+
   return (
     <div className="relative min-h-screen flex flex-col bg-black text-white">
       
@@ -308,7 +370,7 @@ const Manager = () => {
                 </div>
               </div>
             </div>
-            <Line data={graphData[graphOption]} options={options} />
+            {renderChart()}
             <div className="flex gap-4 mt-6 justify-center">
               {["supply", "borrow", "withdraw", "repay", "manager"].map((option) => (
                 <button
